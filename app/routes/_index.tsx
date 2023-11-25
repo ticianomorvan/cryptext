@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <main className="flex h-fit min-h-screen flex-col items-center gap-4 sm:justify-center">
+    <main className="flex h-[95vh] flex-col items-center gap-4 sm:justify-center">
       <section className="flex flex-col items-center">
         <span className="flex items-center gap-1">
           <h1 className="my-2 text-6xl font-bold">Cryptext</h1>

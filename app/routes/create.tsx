@@ -112,8 +112,8 @@ export default function Create() {
   }
 
   return (
-    <main className="mx-auto flex h-[90vh] max-w-md flex-col items-center justify-center gap-6">
-      <span className="flex flex-col items-center">
+    <main className="mx-auto flex h-[95vh] max-w-md flex-col items-center justify-center gap-6">
+      <span className="flex flex-col items-center text-center">
         <h1 className="my-4 text-4xl font-semibold">Create a new cryptext</h1>
         <h2 className="text-center text-xl">
           Just write anything you want and generate your share link.

@@ -82,7 +82,7 @@ export default function See() {
   }
 
   return (
-    <main className="my-auto flex h-[90vh] flex-col sm:justify-center">
+    <main className="my-auto flex h-[95vh] flex-col sm:justify-center">
       <h1 className="my-4 text-4xl font-semibold">Decrypt a message</h1>
       <h2 className="my-2 text-xl text-gray-600">
         You'll need the private key associated to this message. If you don't
