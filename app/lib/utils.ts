@@ -3,7 +3,7 @@ export function formatRoute(route: string) {
     return `http://localhost:3000/${route}`;
   }
 
-  return `https://cryptext.com/${route}`;
+  return `https://cryp-text.vercel.app/${route}`;
 }
 
 export function arrayBufferToString(arrayBuffer: ArrayBuffer) {
