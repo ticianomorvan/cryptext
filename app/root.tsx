@@ -20,15 +20,22 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"></link>
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        ></link>
         <Meta />
         <Links />
       </head>
       <body>
         <Toaster />
 
-        <div className="max-w-xl mx-auto p-4 font-sans sm:p-0">
+        <div className="mx-auto max-w-xl p-4 font-sans sm:p-0">
           <Outlet />
         </div>
         <ScrollRestoration />

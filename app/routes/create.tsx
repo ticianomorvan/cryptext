@@ -1,6 +1,14 @@
 import { Link, type MetaFunction } from "@remix-run/react";
 import { Dialog, Transition } from "@headlessui/react";
-import { IconAlertTriangleFilled, IconArrowLeft, IconArrowRight, IconClipboardCopy, IconExternalLink, IconKey, IconShare } from "@tabler/icons-react";
+import {
+  IconAlertTriangleFilled,
+  IconArrowLeft,
+  IconArrowRight,
+  IconClipboardCopy,
+  IconExternalLink,
+  IconKey,
+  IconShare,
+} from "@tabler/icons-react";
 import { Fragment, useMemo, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { arrayBufferToString, formatRoute } from "~/lib/utils";
@@ -39,10 +47,10 @@ export default function Create() {
         true,
         ["encrypt", "decrypt"],
       );
-  
+
       return cryptoKeyPair;
     } catch (error) {
-      throw new Error('An error ocurred while creating your keys.')
+      throw new Error("An error ocurred while creating your keys.");
     }
   }
 
@@ -53,10 +61,10 @@ export default function Create() {
         publicKey,
         encodedText,
       );
-  
+
       return cipherText;
     } catch (error) {
-      throw new Error('An error ocurred while encrypting your message.')
+      throw new Error("An error ocurred while encrypting your message.");
     }
   }
 
@@ -68,17 +76,17 @@ export default function Create() {
       );
       const base64KeyString = arrayBufferToString(exportedKey);
       const pemExported = `-----BEGIN PRIVATE KEY-----\n${base64KeyString}\n-----END PRIVATE KEY-----`;
-  
+
       return pemExported;
     } catch (error) {
-      throw new Error('An error ocurred while exporting your private key.')
+      throw new Error("An error ocurred while exporting your private key.");
     }
   }
 
   async function calculateResult() {
     try {
       if (text.length === 0) {
-        throw new Error('You must write something to share.')
+        throw new Error("You must write something to share.");
       }
 
       const cryptoKeyPair = await generateCryptoKeyPair();
@@ -90,31 +98,33 @@ export default function Create() {
         const exportedPrivateKey = await exportPrivateCryptoKey(
           cryptoKeyPair.privateKey,
         );
-    
+
         setCalculationResult({
           encodedText: urlBase64,
           privateKey: exportedPrivateKey,
         });
 
-        setText('')
+        setText("");
       }
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   return (
-    <main className="mx-auto flex h-[90vh] max-w-md flex-col gap-6 items-center justify-center">
+    <main className="mx-auto flex h-[90vh] max-w-md flex-col items-center justify-center gap-6">
       <span className="flex flex-col items-center">
         <h1 className="my-4 text-4xl font-semibold">Create a new cryptext</h1>
-        <h2 className="text-xl text-center">Just write anything you want and generate your share link.</h2>
+        <h2 className="text-center text-xl">
+          Just write anything you want and generate your share link.
+        </h2>
       </span>
 
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="A really deep secret..."
-        className="min-w-full min-h-[12em] p-4 rounded-lg resize-none border border-gray-400 out transition duration-150 focus:border-blue-500 focus:outline-none active:outline-none"
+        className="out min-h-[12em] min-w-full resize-none rounded-lg border border-gray-400 p-4 transition duration-150 focus:border-blue-500 focus:outline-none active:outline-none"
       />
 
       <PrivateKeyModal
@@ -126,46 +136,48 @@ export default function Create() {
 }
 
 interface PrivateKeyModalProps {
-  calculateResult: () => Promise<void>
+  calculateResult: () => Promise<void>;
   calculationResult: {
-    encodedText: string,
-    privateKey: string
-  }
+    encodedText: string;
+    privateKey: string;
+  };
 }
 
 function PrivateKeyModal({
-  calculationResult, calculateResult
+  calculationResult,
+  calculateResult,
 }: PrivateKeyModalProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function handleButtonClick() {
     calculateResult()
       .then(() => setIsOpen(true))
-      .catch((error) => toast.error((error as Error).message))
+      .catch((error) => toast.error((error as Error).message));
   }
 
   function handleCopyPrivateKey() {
     if (calculationResult.privateKey.length > 0) {
-      window.navigator.clipboard.writeText(calculationResult.privateKey)
-        .then(() => toast.success('Key successfully copied to clipboard!'))
+      window.navigator.clipboard
+        .writeText(calculationResult.privateKey)
+        .then(() => toast.success("Key successfully copied to clipboard!"));
 
-      return
+      return;
     }
 
-    toast.error("You didn't generate your keys yet.")
+    toast.error("You didn't generate your keys yet.");
   }
 
   return (
     <>
-      <span className="w-full flex justify-between items-center">
-        <Link to="/" className="flex gap-2 items-center">
+      <span className="flex w-full items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
           <IconArrowLeft />
           Go back
         </Link>
         <button
           type="button"
           onClick={handleButtonClick}
-          className="px-4 py-2 flex gap-2 items-center rounded-lg bg-gray-800 text-white"
+          className="flex items-center gap-2 rounded-lg bg-gray-800 px-4 py-2 text-white"
         >
           Generate your share link
           <IconKey />
@@ -183,7 +195,10 @@ function PrivateKeyModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/30 backdrop-blur-md" aria-hidden="true" />
+            <div
+              className="fixed inset-0 bg-black/30 backdrop-blur-md"
+              aria-hidden="true"
+            />
           </Transition.Child>
 
           <Transition.Child
@@ -196,22 +211,28 @@ function PrivateKeyModal({
             leaveTo="opacity-0"
           >
             <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-              <Dialog.Panel className="mx-auto max-w-sm flex flex-col gap-4 p-4 rounded-lg bg-white sm:max-w-xl">
-                <div className="flex gap-2 items-center">
+              <Dialog.Panel className="mx-auto flex max-w-sm flex-col gap-4 rounded-lg bg-white p-4 sm:max-w-xl">
+                <div className="flex items-center gap-2">
                   <IconAlertTriangleFilled />
                   <Dialog.Title className="text-2xl font-bold">
                     This is your private key
                   </Dialog.Title>
                 </div>
-                <p className="text-lg text-gray-600">This private key will not be stored anywhere, so it is important that you do not lose it if you want to continue sharing this note.</p>
+                <p className="text-lg text-gray-600">
+                  This private key will not be stored anywhere, so it is
+                  important that you do not lose it if you want to continue
+                  sharing this note.
+                </p>
 
-                <div className="p-2 flex items-center justify-between bg-gray-200 rounded-md">
-                  <p className="max-w-[48ch] truncate overflow-hidden text-ellipsis">{calculationResult.privateKey}</p>
+                <div className="flex items-center justify-between rounded-md bg-gray-200 p-2">
+                  <p className="max-w-[48ch] overflow-hidden truncate text-ellipsis">
+                    {calculationResult.privateKey}
+                  </p>
                   <button
                     id="copy-private-key-button"
                     type="button"
                     onClick={handleCopyPrivateKey}
-                    className="p-2 rounded-lg bg-gray-800 text-gray-200"
+                    className="rounded-lg bg-gray-800 p-2 text-gray-200"
                   >
                     <IconClipboardCopy />
                   </button>
@@ -222,21 +243,26 @@ function PrivateKeyModal({
                 </div>
 
                 <section>
-                  <div className="my-4 flex gap-2 items-center">
+                  <div className="my-4 flex items-center gap-2">
                     <IconShare />
                     <h3 className="text-xl font-semibold">
                       Share your message
                     </h3>
                   </div>
-                  <p className="text-gray-600">Once you copied your private key, you should share it along this link to allow people decrypt it.</p>
+                  <p className="text-gray-600">
+                    Once you copied your private key, you should share it along
+                    this link to allow people decrypt it.
+                  </p>
 
-                  <div className="my-4 p-2 rounded-lg bg-blue-50 flex items-center justify-between">
-                    <p className="max-w-[48ch] overflow-hidden text-ellipsis">{formatRoute(`see/${calculationResult.encodedText}`)}</p>
+                  <div className="my-4 flex items-center justify-between rounded-lg bg-blue-50 p-2">
+                    <p className="max-w-[48ch] overflow-hidden text-ellipsis">
+                      {formatRoute(`see/${calculationResult.encodedText}`)}
+                    </p>
                     <a
                       href={formatRoute(`see/${calculationResult.encodedText}`)}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="p-2 rounded-lg bg-blue-600 text-gray-100"
+                      className="rounded-lg bg-blue-600 p-2 text-gray-100"
                     >
                       <IconExternalLink />
                     </a>
@@ -244,12 +270,15 @@ function PrivateKeyModal({
                 </section>
 
                 <span className="flex items-center justify-between">
-                    <p className="max-w-[36ch] text-gray-600">PD: Generating the same text will NOT keep the current values. Be sure to copy your information.</p>
+                  <p className="max-w-[36ch] text-gray-600">
+                    PD: Generating the same text will NOT keep the current
+                    values. Be sure to copy your information.
+                  </p>
 
                   <button
                     type="button"
                     onClick={() => setIsOpen(false)}
-                    className="px-4 py-2 flex gap-2 items-center rounded-lg bg-blue-500 text-white"
+                    className="flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-white"
                   >
                     <p>Continue</p>
                     <IconArrowRight />
@@ -261,5 +290,5 @@ function PrivateKeyModal({
         </Dialog>
       </Transition>
     </>
-  )
+  );
 }

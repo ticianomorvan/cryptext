@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', '--system-ui']
-      }
+        sans: ["Inter", "--system-ui"],
+      },
     },
   },
   plugins: [],

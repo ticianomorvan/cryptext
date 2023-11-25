@@ -1,12 +1,12 @@
-import { IconHeartFilled } from "@tabler/icons-react"
-import packageJson from "../../package.json"
+import { IconHeartFilled } from "@tabler/icons-react";
+import packageJson from "../../package.json";
 
 export default function Footer() {
   return (
-    <footer className="w-full flex flex-wrap p-4 gap-2 items-center justify-center bg-white border-t border-t-gray-800">
+    <footer className="flex w-full flex-wrap items-center justify-center gap-2 border-t border-t-gray-800 bg-white p-4">
       <p>Cryptext v{packageJson.version ?? 1}</p>
-      <span className="hidden sm:block">{'-'}</span>
-      <span className="flex gap-1 items-center">
+      <span className="hidden sm:block">{"-"}</span>
+      <span className="flex items-center gap-1">
         <p>With</p>
         <IconHeartFilled className="text-red-600" />
         <p>by</p>
@@ -20,5 +20,5 @@ export default function Footer() {
         </a>
       </span>
     </footer>
-  )
+  );
 }
